@@ -9,7 +9,7 @@ public class SHAMainTest {
 
 	@Test
 	public void testNonce() {
-		int prefixZero = 7;
+		int prefixZero = 5;
 		StringBuilder strToCompare = new StringBuilder();
 		for(int i = 0 ; i < prefixZero ; i++) {
 			strToCompare.append("0");

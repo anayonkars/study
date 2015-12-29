@@ -23,6 +23,11 @@ public class Nonce {
 	public String getHash() {
 		return hash;
 	}
+
+	@Override
+	public String toString() {
+		return "Input : " + input + " ; NonceNumber : " + nonceNumber + " ; Hash : " + hash;
+	}
 	
 	
 }

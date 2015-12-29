@@ -19,12 +19,14 @@ public class SHAMain {
 	public static final long CHECKS_PER_TASK = 1000000;
 	public static MessageDigest md = null;
 	public static final long startTime = System.nanoTime();
+	private static long nonce;
 	
-	public static void main(String[] args) throws NoSuchAlgorithmException {
-		findNonce(new StringBuilder("Hello, World!"), 5);
+	public static void main(String[] args) throws NoSuchAlgorithmException, InterruptedException {
+		long result = findNonce(new StringBuilder("Hello, World!"), 5);
+		System.out.println("final result : " + result);
 	}
 	
-	public static void findNonce(final StringBuilder input, final int prefixZero) throws NoSuchAlgorithmException {
+	public static long findNonce(final StringBuilder input, final int prefixZero) throws NoSuchAlgorithmException, InterruptedException {
 		md = MessageDigest.getInstance("SHA-256");
 		NonceFinder.initComparingString(prefixZero);
 		final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
@@ -112,6 +114,7 @@ public class SHAMain {
 					}
 					if(nonce != null)
 					{
+						SHAMain.nonce = nonce;
 						System.out.println(nonce);
 						@SuppressWarnings("unused")
 						long stopTime = System.nanoTime();
@@ -133,6 +136,9 @@ public class SHAMain {
 		Thread retrieverThread = new Thread(retriever);
 		submitterThread.start();
 		retrieverThread.start();
+		submitterThread.join();
+		retrieverThread.join();
+		return SHAMain.nonce;
 	}
 
 }

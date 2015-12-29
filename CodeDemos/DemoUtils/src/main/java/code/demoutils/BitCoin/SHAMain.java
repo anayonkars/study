@@ -21,7 +21,7 @@ public class SHAMain {
 	public static final long startTime = System.nanoTime();
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException {
-		findNonce(new StringBuilder("Hello, World!"), 7);
+		findNonce(new StringBuilder("Hello, World!"), 5);
 	}
 	
 	public static void findNonce(final StringBuilder input, final int prefixZero) throws NoSuchAlgorithmException {
@@ -46,7 +46,9 @@ public class SHAMain {
 						Callable<Long> task = new NonceFinder(input, prefixZero, start, end);
 						synchronized (resultList)
 						{
-							while(resultList.size() > (THREAD_COUNT * WAIT_FACTOR))
+							while(resultList.size() > (THREAD_COUNT * WAIT_FACTOR)
+									&& !executorService.isTerminated() 
+									&& !executorService.isShutdown())
 							{
 								System.out.println("Waiting as resultList size is " + resultList.size());
 								resultList.wait();
@@ -61,11 +63,10 @@ public class SHAMain {
 					{
 						e.printStackTrace();
 					}
-					catch(RejectedExecutionException e)
-					{
-						
+					catch(RejectedExecutionException e) {
+						//TODO: how to handle?
 					}
-				}while(!executorService.isTerminated());
+				}while(!executorService.isTerminated() && !executorService.isShutdown());
 			}
 		};
 		Runnable retriever = new Runnable()
@@ -111,15 +112,20 @@ public class SHAMain {
 					}
 					if(nonce != null)
 					{
-						//System.out.println(nonce);
+						System.out.println(nonce);
 						@SuppressWarnings("unused")
 						long stopTime = System.nanoTime();
-						//System.out.println("Time taken: " + (stopTime - startTime) / 1000000);
+						System.out.println("Time taken: " + (stopTime - startTime) / 1000000);
 						@SuppressWarnings("unused")
 						List<Runnable> pendingTasks = executorService.shutdownNow();
 						//NonceFinder.setRunning(false);
 					}
-					if(executorService.isShutdown()) break;
+					if(executorService.isShutdown() || executorService.isTerminated()) {
+						synchronized (resultList) {
+							resultList.notifyAll();
+						}
+						break;
+					}
 				}
 			}
 		};

@@ -19,19 +19,19 @@ public class SHAMain {
 	public static final long CHECKS_PER_TASK = 1000000;
 	public static MessageDigest md = null;
 	public static final long startTime = System.nanoTime();
-	private static long nonce;
+	private static Nonce nonce;
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException, InterruptedException {
-		long result = findNonce(new StringBuilder("Hello, World!"), 5);
+		Nonce result = findNonce(new StringBuilder("Hello, World!"), 7);
 		System.out.println("final result : " + result);
 	}
 	
-	public static long findNonce(final StringBuilder input, final int prefixZero) throws NoSuchAlgorithmException, InterruptedException {
+	public static Nonce findNonce(final StringBuilder input, final int prefixZero) throws NoSuchAlgorithmException, InterruptedException {
 		md = MessageDigest.getInstance("SHA-256");
 		NonceFinder.initComparingString(prefixZero);
 		final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
-		final ExecutorCompletionService<Long> executorCompletionService = new ExecutorCompletionService<>(executorService);
-		final List<Future<Long>> resultList = new ArrayList<Future<Long>>();
+		final ExecutorCompletionService<Nonce> executorCompletionService = new ExecutorCompletionService<>(executorService);
+		final List<Future<Nonce>> resultList = new ArrayList<Future<Nonce>>();
 		Runnable submitter = new Runnable()
 		{
 			@Override
@@ -45,7 +45,7 @@ public class SHAMain {
 					long end = count * CHECKS_PER_TASK;
 					try
 					{
-						Callable<Long> task = new NonceFinder(input, prefixZero, start, end);
+						Callable<Nonce> task = new NonceFinder(input, prefixZero, start, end);
 						synchronized (resultList)
 						{
 							while(resultList.size() > (THREAD_COUNT * WAIT_FACTOR)
@@ -55,7 +55,7 @@ public class SHAMain {
 								System.out.println("Waiting as resultList size is " + resultList.size());
 								resultList.wait();
 							}
-							Future<Long> result = executorCompletionService.submit(task);
+							Future<Nonce> result = executorCompletionService.submit(task);
 							resultList.add(result);
 							resultList.notifyAll();
 						}
@@ -93,7 +93,7 @@ public class SHAMain {
 							}
 						}
 					}
-					Future<Long> result;
+					Future<Nonce> result;
 					synchronized (resultList)
 					{
 						result = resultList.remove(0);
@@ -103,7 +103,7 @@ public class SHAMain {
 							resultList.notifyAll();
 						}
 					}
-					Long nonce = null;
+					Nonce nonce = null;
 					try
 					{
 						nonce = result.get();

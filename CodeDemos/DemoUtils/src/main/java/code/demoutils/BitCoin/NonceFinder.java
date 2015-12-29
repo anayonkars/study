@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicLong;
 
-class NonceFinder implements Callable<Long> {
+class NonceFinder implements Callable<Nonce> {
 
 	private StringBuilder input;
 	@SuppressWarnings("unused")
@@ -34,7 +34,7 @@ class NonceFinder implements Callable<Long> {
 		this.md = MessageDigest.getInstance("SHA-256");
 	}
 	
-	public Long call() throws Exception {
+	public Nonce call() throws Exception {
 		String originalInput = input.toString();
 		String result;
 		long count;
@@ -56,7 +56,8 @@ class NonceFinder implements Callable<Long> {
 				long stopTime = System.nanoTime();
 				System.out.println("Time taken: " + (stopTime - SHAMain.startTime) / 1000000);
 				//System.exit(0);
-				return count;
+				//return count;
+				return new Nonce(originalInput, count, result);
 			}
 		}
 		//if(isRunning)

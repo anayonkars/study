@@ -9,7 +9,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-public class Triangle implements ApplicationContextAware, BeanNameAware, InitializingBean, DisposableBean {
+public class Triangle implements ApplicationContextAware, BeanNameAware, InitializingBean, DisposableBean, Shape {
 
 	/*private Point pointA;
 	private Point pointB;
@@ -54,10 +54,13 @@ public class Triangle implements ApplicationContextAware, BeanNameAware, Initial
 	public int getHeight() {
 		return height;
 	}*/
+	
+	@Override
 	public void draw() {
 		/*System.out.println("Point A: (" + this.pointA.getX() + "," + this.pointA.getY() + ")");
 		System.out.println("Point B: (" + this.pointB.getX() + "," + this.pointB.getY() + ")");
 		System.out.println("Point C: (" + this.pointC.getX() + "," + this.pointC.getY() + ")");*/
+		System.out.println("Drawing Triangle");
 		for(Point point : this.points) {
 			System.out.println("Point : (" + point.getX() + "," + point.getY() + ")");
 		}

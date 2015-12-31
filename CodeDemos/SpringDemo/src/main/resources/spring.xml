@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/beans/context
+		http://www.springframework.org/schema/beans/spring-context-4.2.xsd"
 	default-init-method="init"
 	default-destroy-method="destroy">
 
@@ -17,7 +21,7 @@
 		<property name="pointC" ref="pointC"></property>
 	</bean> -->
 	
-	<bean id="parentTriangle" class="code.springshape.Triangle" abstract="true">
+	<!-- <bean id="parentTriangle" class="code.springshape.Triangle" abstract="true">
 		<property name="points">
 			<list>
 				<ref bean="pointA"/>
@@ -40,7 +44,8 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="triangle" class="code.springshape.Triangle" name="triangle-name" autowire="byName" scope="prototype">
+	<bean id="triangle" class="code.springshape.Triangle" name="triangle-name" autowire="byName" scope="prototype"> -->
+	
 	<!-- 
 		<property name="type" value="Equilateral"></property>
 	-->
@@ -82,8 +87,8 @@
 		</property> -->
 		<!-- <property name="pointA" ref="point1"></property>
 		<property name="pointB" ref="point2"></property>
-		<property name="pointC" ref="point3"></property> -->
-	</bean>
+		<property name="pointC" ref="point3"></property>
+	</bean> -->
 
 	<!-- <bean id="point1" class="code.springshape.Point">
 		<property name="x" value="0"></property>
@@ -99,29 +104,59 @@
 		<property name="x" value="0"></property>
 		<property name="y" value="20"></property>
 	</bean> -->
-	<bean id="pointA" class="code.springshape.Point" scope="prototype">
+	<!-- <bean id="pointA" class="code.springshape.Point">
+		<qualifier value="circleCenter"></qualifier>
 		<property name="x" value="${pointA.pointX}"></property>
 		<property name="y" value="${pointA.pointY}"></property>
+	</bean> -->
+	
+	<bean id="pointA" class="code.springshape.Point">
+		<qualifier value="circleCenter"></qualifier>
+		<property name="x" value="0"></property>
+		<property name="y" value="0"></property>
 	</bean>
 	
-	<bean id="pointB" class="code.springshape.Point" scope="prototype">
+	<!-- <bean id="center" class="code.springshape.Point" scope="prototype">
+		<property name="x" value="${pointA.pointX}"></property>
+		<property name="y" value="${pointA.pointY}"></property>
+	</bean> -->
+	
+	<!-- <bean id="pointB" class="code.springshape.Point">
 		<property name="x" value="${pointB.pointX}"></property>
 		<property name="y" value="${pointB.pointY}"></property>
 	</bean>
 	
-	<bean id="pointC" class="code.springshape.Point" scope="prototype">
+	<bean id="pointC" class="code.springshape.Point">
 		<property name="x" value="${pointC.pointX}"></property>
 		<property name="y" value="${pointC.pointY}"></property>
+	</bean> -->
+	
+	<bean id="pointB" class="code.springshape.Point">
+		<property name="x" value="-20"></property>
+		<property name="y" value="0"></property>
 	</bean>
 	
-	<alias name="triangle" alias="triangle-alias"/>
+	<bean id="pointC" class="code.springshape.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="20"></property>
+	</bean>
+	
+	<!-- <alias name="triangle" alias="triangle-alias"/>
 	
 	<bean class="code.springshape.DisplayNameBeanPostProcessor"></bean>
 	
-	<bean class="code.springshape.MyBeanFactoryPostProcessor"></bean>
+	<bean class="code.springshape.MyBeanFactoryPostProcessor"></bean> -->
 	
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations" value="pointsconfig.properties"></property>
+	</bean> -->
+	
+	<bean id="shape" class="code.springshape.Circle">
+		<!-- <property name="center" ref="pointA"></property> -->
 	</bean>
+	
+	<!-- <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"></bean> -->
+	
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean>
 	
 </beans>

@@ -9,14 +9,17 @@ public class DrawingApp {
 	private static AbstractApplicationContext context;
 	
 	public static void main(String[] args) {
-		context = new ClassPathXmlApplicationContext("spring.xml");
+		context = new ClassPathXmlApplicationContext("spring_new.xml");
 		context.registerShutdownHook();
 		//Triangle triangle = (Triangle)context.getBean("triangle");
 		//Triangle triangle = (Triangle)context.getBean("triangle-alias");
 		/*Triangle triangle = (Triangle)context.getBean("triangle");
 		triangle.draw();*/
-		Triangle triangle = (Triangle)context.getBean("childChildTriangle");
-		triangle.draw();
+		Shape shape;
+		/*shape = (Shape) context.getBean("childChildTriangle");
+		shape.draw();*/
+		shape = (Shape)context.getBean("shape");
+		shape.draw();
 		//System.out.println(triangle.getPointB().getX());
 	}
 

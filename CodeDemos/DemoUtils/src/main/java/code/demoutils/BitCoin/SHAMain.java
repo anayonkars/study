@@ -22,7 +22,7 @@ public class SHAMain {
 	private static Nonce nonce;
 	
 	public static void main(String[] args) throws NoSuchAlgorithmException, InterruptedException {
-		Nonce result = findNonce(new StringBuilder("Hello, World!"), 7);
+		Nonce result = findNonce(new StringBuilder("Hello, World!"), 5);
 		System.out.println("final result : " + result);
 	}
 	
@@ -116,7 +116,6 @@ public class SHAMain {
 					{
 						SHAMain.nonce = nonce;
 						System.out.println(nonce);
-						@SuppressWarnings("unused")
 						long stopTime = System.nanoTime();
 						System.out.println("Time taken: " + (stopTime - startTime) / 1000000);
 						@SuppressWarnings("unused")

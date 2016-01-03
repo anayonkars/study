@@ -6,8 +6,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 
-	<context:annotation-config></context:annotation-config>
-
 	<bean id="pointA" class="code.springshape.Point">
 		<qualifier value="circleCenter"></qualifier>
 		<property name="x" value="0"></property>
@@ -23,10 +21,13 @@
 		<property name="x" value="0"></property>
 		<property name="y" value="20"></property>
 	</bean>
+	
+	<context:annotation-config></context:annotation-config>
 
 	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean> -->
 
-	<bean id="shape" class="code.springshape.Circle"></bean>
+	<!-- <bean id="shape" class="code.springshape.Circle"></bean> -->
 
+	<context:component-scan base-package="code.springshape"></context:component-scan>
 
 </beans>

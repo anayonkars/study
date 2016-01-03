@@ -18,7 +18,8 @@ public class DrawingApp {
 		Shape shape;
 		/*shape = (Shape) context.getBean("childChildTriangle");
 		shape.draw();*/
-		shape = (Shape)context.getBean("shape");
+		//shape = (Shape)context.getBean("shape");
+		shape = (Shape)context.getBean("circle");
 		shape.draw();
 		//System.out.println(triangle.getPointB().getX());
 	}

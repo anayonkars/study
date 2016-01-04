@@ -22,6 +22,7 @@ public class DrawingApp {
 		shape = (Shape)context.getBean("circle");
 		shape.draw();
 		//System.out.println(triangle.getPointB().getX());
+		System.out.println(context.getMessage("greeting", null, "Default Greeting", null));
 	}
 
 }

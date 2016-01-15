@@ -10,7 +10,9 @@
 	<!-- <context:annotation-config/>
 	
 	<aop:aspectj-autoproxy/> -->
-	
+
+	<context:annotation-config/>
+
 	<aop:aspectj-autoproxy/>
 	
 	<bean name="triangle" class="code.springaop.model.Triangle">

@@ -7,12 +7,12 @@ import code.springaop.service.ShapeService;
 
 public class AopMain {
 
-	private static AbstractApplicationContext ctx;
+	private static AbstractApplicationContext context;
 	
 	public static void main(String[] args) {
-		ctx = new ClassPathXmlApplicationContext("spring_aop.xml");
-		ctx.registerShutdownHook();
-		ShapeService shapeService = ctx.getBean("shapeService", ShapeService.class);
+		context = new ClassPathXmlApplicationContext("spring_aop.xml");
+		context.registerShutdownHook();
+		ShapeService shapeService = context.getBean("shapeService", ShapeService.class);
 		System.out.println(shapeService.getCircle().getName());
 		System.out.println(shapeService.getTriangle().getName());
 	}

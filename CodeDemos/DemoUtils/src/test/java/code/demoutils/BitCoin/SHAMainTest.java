@@ -19,7 +19,6 @@ public class SHAMainTest {
 			Nonce nonce = SHAMain.findNonce(input, prefixZero);
 			Assert.assertTrue("message", nonce.getHash().startsWith(strToCompare.toString()));
 		} catch (NoSuchAlgorithmException | InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

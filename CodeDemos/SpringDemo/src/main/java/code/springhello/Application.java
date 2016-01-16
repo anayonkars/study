@@ -8,9 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan
-public class Application {
+class Application {
 
-	private static ApplicationContext context;
 	@Bean
 	MessageService mockMessageService() {
 		return new MessageService() {
@@ -21,7 +20,7 @@ public class Application {
 		};
 	}
 	public static void main(String[] args) {
-		context = new AnnotationConfigApplicationContext(Application.class);
+		ApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
 		MessagePrinter printer = context.getBean(MessagePrinter.class);
 		printer.printMessage();
 	}

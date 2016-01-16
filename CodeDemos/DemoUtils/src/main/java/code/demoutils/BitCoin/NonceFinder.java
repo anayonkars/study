@@ -7,13 +7,11 @@ import java.util.concurrent.atomic.AtomicLong;
 
 class NonceFinder implements Callable<Nonce> {
 
-	private StringBuilder input;
-	@SuppressWarnings("unused")
-	private int prefixZero;
-	private long start;
-	private long end;
-	private long thisTaskId;
-	private static AtomicLong taskId = new AtomicLong(0);
+	private final StringBuilder input;
+	private final long start;
+	private final long end;
+	private final long thisTaskId;
+	private static final AtomicLong taskId = new AtomicLong(0);
 	private MessageDigest md;
 	private static final StringBuilder comparatingString = new StringBuilder();
 	public static void initComparingString(int prefixZero)
@@ -24,10 +22,9 @@ class NonceFinder implements Callable<Nonce> {
 		}
 	}
 	//private static volatile boolean isRunning = true;
-	public NonceFinder(StringBuilder input, int prefixZero, long start, long end) throws NoSuchAlgorithmException
+	public NonceFinder(StringBuilder input, @SuppressWarnings("UnusedParameters") int prefixZero, long start, long end) throws NoSuchAlgorithmException
 	{
 		this.input = input;
-		this.prefixZero = prefixZero;
 		this.start = start;
 		this.end = end;
 		this.thisTaskId = taskId.incrementAndGet();
@@ -48,7 +45,7 @@ class NonceFinder implements Callable<Nonce> {
 				System.out.println(count.divide(million));
 			}*/
 			//System.out.println(result);
-			if(result.toString().startsWith(comparatingString.toString()))
+			if(result.startsWith(comparatingString.toString()))
 			{
 				System.out.println("input: " + inputForHash);
 				System.out.println("result: " + result);
@@ -75,17 +72,15 @@ class NonceFinder implements Callable<Nonce> {
 		return (obj != null && obj instanceof NonceFinder && ((NonceFinder)obj).getThisTaskId() == thisTaskId);
 	}
 
-	public long getThisTaskId() {
+	private long getThisTaskId() {
 		return thisTaskId;
 	}
 	
 	private String convertHash(byte[] hash)	{
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0 ; i < hash.length ; i++)
-		{
-			String hex = Integer.toHexString(0xFF & hash[i]);
-			if(hex.length() == 1)
-			{
+		for (byte aHash : hash) {
+			String hex = Integer.toHexString(0xFF & aHash);
+			if (hex.length() == 1) {
 				sb.append('0');
 			}
 			sb.append(hex);

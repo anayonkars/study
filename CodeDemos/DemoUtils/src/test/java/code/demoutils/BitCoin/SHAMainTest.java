@@ -20,6 +20,7 @@ public class SHAMainTest {
 			Assert.assertTrue("message", nonce.getHash().startsWith(strToCompare.toString()));
 		} catch (NoSuchAlgorithmException | InterruptedException e) {
 			e.printStackTrace();
+			System.out.println("Exception is : " + e.getMessage());
 		}
 	}
 }

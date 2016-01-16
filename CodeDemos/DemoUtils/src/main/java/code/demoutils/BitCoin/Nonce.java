@@ -2,9 +2,9 @@ package code.demoutils.BitCoin;
 
 public class Nonce {
 
-	private String input;
-	private long nonceNumber;
-	private String hash;
+	private final String input;
+	private final long nonceNumber;
+	private final String hash;
 	
 	public Nonce(String input, long nonceNumber, String hash) {
 		this.input = input;

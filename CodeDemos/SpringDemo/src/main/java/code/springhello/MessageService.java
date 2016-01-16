@@ -1,5 +1,6 @@
 package code.springhello;
 
-public interface MessageService {
+interface MessageService {
+	@SuppressWarnings("SameReturnValue")
 	String getMessage();
 }

@@ -7,11 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DrawingAppTest {
 
-	private AbstractApplicationContext context;
-
 	@Test
 	public void messageTest() {
-		context = new ClassPathXmlApplicationContext("spring_new.xml");
+		AbstractApplicationContext context = new ClassPathXmlApplicationContext("spring_new.xml");
 		context.registerShutdownHook();
 		String message = context.getMessage("greeting", null, "Default Greeting", null);
 		final String expected = "Hello!";

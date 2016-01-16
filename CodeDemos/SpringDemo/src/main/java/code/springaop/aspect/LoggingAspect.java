@@ -23,5 +23,7 @@ public class LoggingAspect {
 	}
 	
 	@Pointcut("execution(* get*())")
-	public void allGetters() {}
+	public void allGetters() {
+		System.out.println("PointCut Called");
+	}
 }

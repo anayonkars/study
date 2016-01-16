@@ -3,13 +3,10 @@ package code.springshape;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class DrawingApp {
+class DrawingApp {
 
-	//private static ApplicationContext context;
-	private static AbstractApplicationContext context;
-	
 	public static void main(String[] args) {
-		context = new ClassPathXmlApplicationContext("spring_new.xml");
+		AbstractApplicationContext context = new ClassPathXmlApplicationContext("spring_new.xml");
 		context.registerShutdownHook();
 		//Triangle triangle = (Triangle)context.getBean("triangle");
 		//Triangle triangle = (Triangle)context.getBean("triangle-alias");
@@ -19,7 +16,7 @@ public class DrawingApp {
 		/*shape = (Shape) context.getBean("childChildTriangle");
 		shape.draw();*/
 		//shape = (Shape)context.getBean("shape");
-		shape = (Shape)context.getBean("circle");
+		shape = (Shape) context.getBean("circle");
 		shape.draw();
 		//System.out.println(triangle.getPointB().getX());
 		/*

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @SuppressWarnings("rawtypes")
 @Component
-public class MyEventListener implements ApplicationListener {
+class MyEventListener implements ApplicationListener {
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {

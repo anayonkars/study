@@ -7,28 +7,28 @@
 
 
 	<bean id="pointA" class="code.springshape.Point">
-		<qualifier value="circleCenter"></qualifier>
-		<property name="x" value="0"></property>
-		<property name="y" value="0"></property>
+		<qualifier value="circleCenter"/>
+		<property name="x" value="0"/>
+		<property name="y" value="0"/>
 	</bean>
 	
 	<bean id="pointB" class="code.springshape.Point">
-		<property name="x" value="-20"></property>
-		<property name="y" value="0"></property>
+		<property name="x" value="-20"/>
+		<property name="y" value="0"/>
 	</bean>
 	
 	<bean id="pointC" class="code.springshape.Point">
-		<property name="x" value="0"></property>
-		<property name="y" value="20"></property>
+		<property name="x" value="0"/>
+		<property name="y" value="20"/>
 	</bean>
 	
-	<context:annotation-config></context:annotation-config>
+	<context:annotation-config/>
 
 	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean> -->
 
 	<!-- <bean id="shape" class="code.springshape.Circle"></bean> -->
 
-	<context:component-scan base-package="code.springshape"></context:component-scan>
+	<context:component-scan base-package="code.springshape"/>
 	
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">

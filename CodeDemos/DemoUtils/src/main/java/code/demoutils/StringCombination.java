@@ -3,9 +3,9 @@ package code.demoutils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringCombination {
+class StringCombination {
 
-	private static List<String> result = new ArrayList<>();
+	private static final List<String> result = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		combine("abcd", new StringBuilder(), 0);

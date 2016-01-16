@@ -12,12 +12,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 
-public class SHAMain {
+class SHAMain {
 
 	private static final int THREAD_COUNT = 8;
 	private static final int WAIT_FACTOR = 10;
 	public static final long CHECKS_PER_TASK = 1000000;
-	public static MessageDigest md = null;
 	public static final long startTime = System.nanoTime();
 	private static Nonce nonce;
 	
@@ -27,11 +26,11 @@ public class SHAMain {
 	}
 	
 	public static Nonce findNonce(final StringBuilder input, final int prefixZero) throws NoSuchAlgorithmException, InterruptedException {
-		md = MessageDigest.getInstance("SHA-256");
+		@SuppressWarnings("UnusedAssignment") MessageDigest md = MessageDigest.getInstance("SHA-256");
 		NonceFinder.initComparingString(prefixZero);
 		final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
 		final ExecutorCompletionService<Nonce> executorCompletionService = new ExecutorCompletionService<>(executorService);
-		final List<Future<Nonce>> resultList = new ArrayList<Future<Nonce>>();
+		final List<Future<Nonce>> resultList = new ArrayList<>();
 		Runnable submitter = new Runnable()
 		{
 			@Override
@@ -118,7 +117,7 @@ public class SHAMain {
 						System.out.println(nonce);
 						long stopTime = System.nanoTime();
 						System.out.println("Time taken: " + (stopTime - startTime) / 1000000);
-						@SuppressWarnings("unused")
+						@SuppressWarnings({"unused", "UnusedAssignment"})
 						List<Runnable> pendingTasks = executorService.shutdownNow();
 						//NonceFinder.setRunning(false);
 					}

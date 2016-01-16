@@ -5,12 +5,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import code.springaop.service.ShapeService;
 
-public class AopMain {
+class AopMain {
 
-	private static AbstractApplicationContext context;
-	
 	public static void main(String[] args) {
-		context = new ClassPathXmlApplicationContext("spring_aop.xml");
+		AbstractApplicationContext context = new ClassPathXmlApplicationContext("spring_aop.xml");
 		context.registerShutdownHook();
 		ShapeService shapeService = context.getBean("shapeService", ShapeService.class);
 		System.out.println(shapeService.getCircle().getName());

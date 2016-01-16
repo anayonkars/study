@@ -1,5 +1,5 @@
 package code.springshape;
 
-public interface Shape {
-	public void draw();
+interface Shape {
+	void draw();
 }

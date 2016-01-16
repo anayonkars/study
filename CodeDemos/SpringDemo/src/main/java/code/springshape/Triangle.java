@@ -11,13 +11,7 @@ import org.springframework.context.ApplicationContextAware;
 
 public class Triangle implements ApplicationContextAware, BeanNameAware, InitializingBean, DisposableBean, Shape {
 
-	/*private Point pointA;
-	private Point pointB;
-	private Point pointC;*/
-	private ApplicationContext context;
-	private String beanName;
-	
-	{
+	static {
 		System.out.println("Triangle Created");
 	}
 	
@@ -99,13 +93,11 @@ public class Triangle implements ApplicationContextAware, BeanNameAware, Initial
 	}*/
 
 	public void setBeanName(String beanName) {
-		this.beanName = beanName;
-		System.out.println("Setting beanName to " + this.beanName);
+		System.out.println("Setting beanName to " + beanName);
 	}
 
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		this.context = context;
-		System.out.println("Setting application context to " + this.context);
+		System.out.println("Setting application context to " + context);
 	}
 
 	public void afterPropertiesSet() throws Exception {

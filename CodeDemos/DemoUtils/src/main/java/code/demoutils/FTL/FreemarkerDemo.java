@@ -1,23 +1,32 @@
 package code.demoutils.FTL;
 
-import freemarker.template.Configuration;
-import freemarker.template.TemplateExceptionHandler;
-
 import java.io.IOException;
-import java.util.*;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
 
 /**
  * Created by anayonkar on 17/1/16.
  */
 public class FreemarkerDemo {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, TemplateException {
         FreemarkerDemo fd = new FreemarkerDemo();
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
         //cfg.setClassForTemplateLoading(FreemarkerDemo.class, "FTL");
         //ClassTemplateLoader ctl = new ClassTemplateLoader(FreemarkerDemo.class, "template");
         //cfg.setTemplateLoader(ctl);
-        cfg.setClassLoaderForTemplateLoading(FreemarkerDemo.class.getClassLoader(), "FTL");
+        cfg.setClassLoaderForTemplateLoading(FreemarkerDemo.class.getClassLoader(), "/");
         //cfg.setClassForTemplateLoading(FreemarkerDemo.class, "template");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setLocale(Locale.US);
@@ -31,8 +40,15 @@ public class FreemarkerDemo {
         systems.add(new ValueExample("Ubuntu", "Canonical"));
         systems.add(new ValueExample("Windows7", "Microsoft"));
         input.put("systems", systems);
-        //Template template = cfg.getTemplate("helloworld.ftl");
-        System.out.println("Done");
+        Template template = cfg.getTemplate("code/demoutils/FTL/template/helloworld.ftl");
+        //System.out.println("Done");
         //TODO: http://www.vogella.com/tutorials/FreeMarker/article.html
+        System.out.println("\nWriting to console:");
+        Writer consoleWriter = new OutputStreamWriter(System.out);
+        template.process(input, consoleWriter);
+        System.out.println("\nWriting to String:");
+        Writer stringWriter = new StringWriter();
+        template.process(input, stringWriter);
+        System.out.println(stringWriter);
     }
 }

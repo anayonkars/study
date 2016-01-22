@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,12 @@ import freemarker.template.TemplateExceptionHandler;
 public class FreemarkerDemo {
 
     public static void main(String[] args) throws IOException, TemplateException {
+        ClassLoader cl = ClassLoader.getSystemClassLoader();
+        URL[] urls = ((URLClassLoader)cl).getURLs();
+        System.out.println("classpath is : ");
+        for(URL url : urls) {
+            System.out.println(url.getFile());
+        }
         FreemarkerDemo fd = new FreemarkerDemo();
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
         //cfg.setClassForTemplateLoading(FreemarkerDemo.class, "FTL");
@@ -40,13 +48,13 @@ public class FreemarkerDemo {
         systems.add(new ValueExample("Ubuntu", "Canonical"));
         systems.add(new ValueExample("Windows7", "Microsoft"));
         input.put("systems", systems);
-        Template template = cfg.getTemplate("code/demoutils/FTL/template/helloworld.ftl");
+        Template template = cfg.getTemplate("templates/helloworld.ftl");
         //System.out.println("Done");
         //TODO: http://www.vogella.com/tutorials/FreeMarker/article.html
-        System.out.println("\nWriting to console:");
+        System.out.println("\n\nWriting to console:");
         Writer consoleWriter = new OutputStreamWriter(System.out);
         template.process(input, consoleWriter);
-        System.out.println("\nWriting to String:");
+        System.out.println("\n\nWriting to String:");
         Writer stringWriter = new StringWriter();
         template.process(input, stringWriter);
         System.out.println(stringWriter);

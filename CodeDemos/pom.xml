@@ -7,5 +7,6 @@
   <modules>
   	<module>DemoUtils</module>
   	<module>SpringDemo</module>
+      <module>MavenDemo</module>
   </modules>
 </project>

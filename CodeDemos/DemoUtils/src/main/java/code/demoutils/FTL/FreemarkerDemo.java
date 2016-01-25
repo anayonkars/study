@@ -29,7 +29,7 @@ public class FreemarkerDemo {
         for(URL url : urls) {
             System.out.println(url.getFile());
         }
-        FreemarkerDemo fd = new FreemarkerDemo();
+        @SuppressWarnings("UnusedAssignment") FreemarkerDemo fd = new FreemarkerDemo();
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
         //cfg.setClassForTemplateLoading(FreemarkerDemo.class, "FTL");
         //ClassTemplateLoader ctl = new ClassTemplateLoader(FreemarkerDemo.class, "template");
@@ -38,7 +38,7 @@ public class FreemarkerDemo {
         //cfg.setClassForTemplateLoading(FreemarkerDemo.class, "template");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setLocale(Locale.US);
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.DEBUG_HANDLER.RETHROW_HANDLER);
+        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         Map<String, Object> input = new HashMap<>();
         input.put("title", "FTL Example");
         input.put("exampleObject", new ValueExample("FTL Demo", "Anayonkar"));

@@ -12,12 +12,7 @@ class Application {
 
 	@Bean
 	MessageService mockMessageService() {
-		return new MessageService() {
-			
-			public String getMessage() {
-				return "Hello, World!";
-			}
-		};
+		return () -> "Hello, World!";
 	}
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(Application.class);

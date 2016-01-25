@@ -14,16 +14,10 @@ import java.util.Properties;
 public class SendExternalEmail {
     private String link="";
 
-    public SendExternalEmail() {
+    private SendExternalEmail() {
     }
 
-    private String sender_email = "e@mail.com";
-    private String sender_password = "mypassword";
-    private String host_name = "smtp.mail.com";
-    //private String port_port = "465";
-    private String port_port = "587";
-    private String mail_to = "";
-    private String mail_subject = "Security Code";
+    private final String sender_email = "e@mail.com";
     private String mail_text = "";
 
 
@@ -35,18 +29,18 @@ public class SendExternalEmail {
     private String sender;
     private String password;
 
-    private String status="fail";
-
     public static void main(String[] args) {
         SendExternalEmail see = new SendExternalEmail();
-        see.setReceiver("e@mail.com");
+        see.setReceiver();
         see.sendEmail();
     }
-    public String sendEmail()
+    private String sendEmail()
     {
         Properties props = new Properties();
         props.put("mail.smtp.user", sender_email);
+        String host_name = "smtp.mail.com";
         props.put("mail.smtp.host", host_name);
+        String port_port = "587";
         props.put("mail.smtp.port", port_port);
         props.put("mail.smtp.starttls.enable","true");
         props.put("mail.smtp.auth", "true");
@@ -54,8 +48,9 @@ public class SendExternalEmail {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.socketFactory.fallback", "false");
 
-        SecurityManager security = System.getSecurityManager();
+        @SuppressWarnings("UnusedAssignment") SecurityManager security = System.getSecurityManager();
 
+        String status = "fail";
         try
         {
 			/*
@@ -65,8 +60,8 @@ public class SendExternalEmail {
 				sender_password=password;
 			*/
 
-            mail_to=receiver;
-            mail_subject=subject;
+            String mail_to = receiver;
+            String mail_subject = subject;
 
             mail_text+="Hello "+receiver;
             mail_text+="<br/><br/>"+link;
@@ -88,12 +83,12 @@ public class SendExternalEmail {
             msg.setContent(mail_text, "text/html");
             Transport.send(msg);
 
-            status="success";
+            status ="success";
         }
         catch (Exception mex)
         {
             mex.printStackTrace();
-            status="fail";
+            status ="fail";
         }
 
         return status;
@@ -105,8 +100,8 @@ public class SendExternalEmail {
         return receiver;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    private void setReceiver() {
+        this.receiver = "e@mail.com";
     }
 
     public String getSubject() {
@@ -155,6 +150,7 @@ public class SendExternalEmail {
     {
         public PasswordAuthentication getPasswordAuthentication()
         {
+            String sender_password = "mypassword";
             return new PasswordAuthentication(sender_email, sender_password);
         }
     }

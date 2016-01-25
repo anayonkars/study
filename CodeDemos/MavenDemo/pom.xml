@@ -10,5 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>code.maven</groupId>
     <artifactId>MavenDemo</artifactId>
-
+    <packaging>pom</packaging>
+    <modules>
+        <module>RPNCalculator</module>
+    </modules>
 </project>

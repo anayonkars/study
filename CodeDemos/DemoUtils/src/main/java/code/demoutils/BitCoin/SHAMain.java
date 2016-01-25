@@ -31,105 +31,94 @@ class SHAMain {
 		final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
 		final ExecutorCompletionService<Nonce> executorCompletionService = new ExecutorCompletionService<>(executorService);
 		final List<Future<Nonce>> resultList = new ArrayList<>();
-		Runnable submitter = new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				long count = 0;
-				do
-				{
-					long start = count * CHECKS_PER_TASK;
-					count++;
-					long end = count * CHECKS_PER_TASK;
-					try
-					{
-						Callable<Nonce> task = new NonceFinder(input, prefixZero, start, end);
-						synchronized (resultList)
-						{
-							while(resultList.size() > (THREAD_COUNT * WAIT_FACTOR)
-									&& !executorService.isTerminated() 
-									&& !executorService.isShutdown())
-							{
-								System.out.println("Waiting as resultList size is " + resultList.size());
-								resultList.wait();
-							}
-							Future<Nonce> result = executorCompletionService.submit(task);
-							resultList.add(result);
-							resultList.notifyAll();
-						}
-						//Thread.sleep(1000);
-					}
-					catch (NoSuchAlgorithmException | InterruptedException e)
-					{
-						e.printStackTrace();
-					}
-					catch(RejectedExecutionException e) {
-						//TODO: how to handle?
-					}
-				}while(!executorService.isTerminated() && !executorService.isShutdown());
-			}
-		};
-		Runnable retriever = new Runnable()
-		{
-			
-			@Override
-			public void run()
-			{
-				while(true)
-				{
-					synchronized (resultList)
-					{
-						while(resultList.isEmpty())
-						{
-							try
-							{
-								resultList.wait();
-							}
-							catch (InterruptedException e)
-							{
-								e.printStackTrace();
-							}
-						}
-					}
-					Future<Nonce> result;
-					synchronized (resultList)
-					{
-						result = resultList.remove(0);
-						if(resultList.size() < THREAD_COUNT)
-						{
-							System.out.println("resuming as resultList size is " + resultList.size());
-							resultList.notifyAll();
-						}
-					}
-					Nonce nonce = null;
-					try
-					{
-						nonce = result.get();
-					}
-					catch (InterruptedException | ExecutionException e)
-					{
-						e.printStackTrace();
-					}
-					if(nonce != null)
-					{
-						SHAMain.nonce = nonce;
-						System.out.println(nonce);
-						long stopTime = System.nanoTime();
-						System.out.println("Time taken: " + (stopTime - startTime) / 1000000);
-						@SuppressWarnings({"unused", "UnusedAssignment"})
-						List<Runnable> pendingTasks = executorService.shutdownNow();
-						//NonceFinder.setRunning(false);
-					}
-					if(executorService.isShutdown() || executorService.isTerminated()) {
-						synchronized (resultList) {
-							resultList.notifyAll();
-						}
-						break;
-					}
-				}
-			}
-		};
+		Runnable submitter = () -> {
+            long count = 0;
+            do
+            {
+                long start = count * CHECKS_PER_TASK;
+                count++;
+                long end = count * CHECKS_PER_TASK;
+                try
+                {
+                    Callable<Nonce> task = new NonceFinder(input, prefixZero, start, end);
+                    synchronized (resultList)
+                    {
+                        while(resultList.size() > (THREAD_COUNT * WAIT_FACTOR)
+                                && !executorService.isTerminated()
+                                && !executorService.isShutdown())
+                        {
+                            System.out.println("Waiting as resultList size is " + resultList.size());
+                            resultList.wait();
+                        }
+                        Future<Nonce> result = executorCompletionService.submit(task);
+                        resultList.add(result);
+                        resultList.notifyAll();
+                    }
+                    //Thread.sleep(1000);
+                }
+                catch (NoSuchAlgorithmException | InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                catch(RejectedExecutionException e) {
+                    //TODO: how to handle?
+                }
+            }while(!executorService.isTerminated() && !executorService.isShutdown());
+        };
+		Runnable retriever = () -> {
+            while(true)
+            {
+                synchronized (resultList)
+                {
+                    while(resultList.isEmpty())
+                    {
+                        try
+                        {
+                            resultList.wait();
+                        }
+                        catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                Future<Nonce> result;
+                synchronized (resultList)
+                {
+                    result = resultList.remove(0);
+                    if(resultList.size() < THREAD_COUNT)
+                    {
+                        System.out.println("resuming as resultList size is " + resultList.size());
+                        resultList.notifyAll();
+                    }
+                }
+                Nonce nonce1 = null;
+                try
+                {
+                    nonce1 = result.get();
+                }
+                catch (InterruptedException | ExecutionException e)
+                {
+                    e.printStackTrace();
+                }
+                if(nonce1 != null)
+                {
+                    nonce = nonce1;
+                    System.out.println(nonce1);
+                    long stopTime = System.nanoTime();
+                    System.out.println("Time taken: " + (stopTime - startTime) / 1000000);
+                    @SuppressWarnings({"unused", "UnusedAssignment"})
+                    List<Runnable> pendingTasks = executorService.shutdownNow();
+                    //NonceFinder.setRunning(false);
+                }
+                if(executorService.isShutdown() || executorService.isTerminated()) {
+                    synchronized (resultList) {
+                        resultList.notifyAll();
+                    }
+                    break;
+                }
+            }
+        };
 		Thread submitterThread = new Thread(submitter);
 		Thread retrieverThread = new Thread(retriever);
 		submitterThread.start();

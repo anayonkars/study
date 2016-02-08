@@ -1,4 +1,4 @@
-package code.demoutils.sortutils;
+package code.demoutils.sortutilswitharrays;
 
 import java.util.Arrays;
 

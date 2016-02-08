@@ -1,44 +1,47 @@
 package code.demoutils.sortutils;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by anayonkar on 1/2/16.
+ * Created by anayonkar on 8/2/16.
  */
 public class QuickSort {
-    private static final int[] arr = {3, 7, 8, 5, 2, 1, 9, 5, 4};
-    public static int[] quickSort(int[] input) {
-        if(input.length < 2) {
+    private static final List<Integer> list = new ArrayList<>();
+    static {
+        list.add(3);
+        list.add(7);
+        list.add(4);
+        list.add(9);
+        list.add(5);
+        list.add(2);
+        list.add(6);
+        list.add(1);
+    }
+    public static List<Integer> quickSort(final List<Integer> input) {
+        if(input.size() < 2) {
             return input;
         }
-        int pivotIndex = input.length / 2;
-        int pivotValue = input[pivotIndex];
-        int leftCount = 0;
-        for(int i = 0 ; i < input.length ; ++i) {
-            if(input[i] < pivotValue) ++leftCount;
-        }
-        int[] left = new int[leftCount];
-        int[] right = new int[input.length - leftCount - 1];
-        int l = 0;
-        int r = 0;
-        for(int i = 0 ; i < input.length ; ++i) {
-            if(i == pivotIndex) continue;
-            int value = input[i];
-            if(value < pivotValue) {
-                left[l++] = value;
+        final int pivotIndex = input.size() / 2;
+        final Integer pivot = input.get(pivotIndex);
+        final List<Integer> lower = new ArrayList<>();
+        final List<Integer> higher = new ArrayList<>();
+        int count = 0;
+        for(int number : input) {
+            if(count++ == pivotIndex)   continue;
+            if(number < pivot) {
+                lower.add(number);
             } else {
-                right[r++] = value;
+                higher.add(number);
             }
         }
-        left = quickSort(left);
-        right = quickSort(right);
-        System.arraycopy(left, 0, input, 0, left.length);
-        input[left.length] = pivotValue;
-        System.arraycopy(right, 0, input, left.length + 1, right.length);
-        return input;
+        final List<Integer> result = quickSort(lower);
+        result.add(pivot);
+        result.addAll(quickSort(higher));
+        return result;
     }
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(arr));
-        System.out.println(Arrays.toString(quickSort(arr)));
+        System.out.println(list);
+        System.out.println(quickSort(list));
     }
 }

@@ -13,7 +13,5 @@
     <packaging>pom</packaging>
     <modules>
         <module>RPNCalculator</module>
-        <module>SamplePlugin</module>
-        <module>SamplePluginClient</module>
     </modules>
 </project>

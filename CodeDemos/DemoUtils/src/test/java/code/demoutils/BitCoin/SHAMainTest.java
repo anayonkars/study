@@ -3,6 +3,7 @@ package code.demoutils.BitCoin;
 import java.security.NoSuchAlgorithmException;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SHAMainTest {

@@ -9,7 +9,7 @@ import java.util.Map;
 public class FibonacciDemo {
     private static Map<Long, Long> cache = new HashMap<>();
     public static void main(String[] args) {
-        long number = 50;
+        long number = 25;
         long start = System.nanoTime();
         System.out.println(simpleFibonacci(number));
         System.out.println("Time : " + (System.nanoTime() - start));
@@ -22,6 +22,7 @@ public class FibonacciDemo {
         return n == 0 ? 0 : n == 1 ? 1 : simpleFibonacci(n - 1) + simpleFibonacci(n - 2);
     }
     public static long cacheFibonacci(long n) {
+        validateInput(n);
         if(n == 0 || n == 1) {
             cache.put(n, n);
             return n;

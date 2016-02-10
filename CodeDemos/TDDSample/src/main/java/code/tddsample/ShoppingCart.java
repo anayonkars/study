@@ -17,6 +17,10 @@ public class ShoppingCart {
         }
     }
     public double getTotalCartValue() {
-        return 0.0;
+        double result = 0.0;
+        for(Product product : productList) {
+            result += product.getPrice();
+        }
+        return result;
     }
 }

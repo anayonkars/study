@@ -20,6 +20,6 @@ public class ShoppingCartTest {
         Product product = new Product("cream", 50.0);
         cart.addProduct(1, product);
         Assert.assertEquals("message", 1, cart.getProductCount());
-        Assert.assertEquals("message", 50.0, cart.getTotalCartValue());
+        Assert.assertEquals(50.0, cart.getTotalCartValue(), 0.0);
     }
 }

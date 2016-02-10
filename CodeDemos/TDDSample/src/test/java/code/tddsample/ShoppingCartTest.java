@@ -22,4 +22,15 @@ public class ShoppingCartTest {
         Assert.assertEquals("message", 1, cart.getProductCount());
         Assert.assertEquals(50.0, cart.getTotalCartValue(), 0.0);
     }
+
+    @Test
+    public void testMultipleProducts() {
+        ShoppingCart cart = new ShoppingCart();
+        Product cream = new Product("cream", 50.0);
+        cart.addProduct(2, cream);
+        Product soap = new Product("soap", 90.0);
+        cart.addProduct(1, soap);
+        Assert.assertEquals("message", 3, cart.getProductCount());
+        Assert.assertEquals(190.0, cart.getTotalCartValue(), 0.0);
+    }
 }

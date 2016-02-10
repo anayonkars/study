@@ -17,8 +17,8 @@ public class ShoppingCartTest {
     @Test
     public void testSingleProduct() {
         ShoppingCart cart = new ShoppingCart();
-        Product product = new Product("cream", 1, 50.0);
-        cart.addProduct(product);
+        Product product = new Product("cream", 50.0);
+        cart.addProduct(1, product);
         Assert.assertEquals("message", 1, cart.getProductCount());
     }
 }

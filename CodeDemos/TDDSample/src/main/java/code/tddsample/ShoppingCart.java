@@ -7,4 +7,5 @@ public class ShoppingCart {
     public int getProductCount() {
         return 0;
     }
+    public void addProduct(int quantity, Product product) {}
 }

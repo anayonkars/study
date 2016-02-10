@@ -8,5 +8,13 @@
   	<module>DemoUtils</module>
   	<module>SpringDemo</module>
       <module>MavenDemo</module>
+      <module>TDDSample</module>
   </modules>
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.2.4.RELEASE</spring.version>
+        <junit.version>4.12</junit.version>
+        <aspect.version>1.8.8</aspect.version>
+    </properties>
 </project>

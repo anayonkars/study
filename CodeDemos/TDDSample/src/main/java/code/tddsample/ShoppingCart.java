@@ -16,4 +16,7 @@ public class ShoppingCart {
             productList.add(product);
         }
     }
+    public double getTotalCartValue() {
+        return 0.0;
+    }
 }

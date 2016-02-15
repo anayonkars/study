@@ -8,15 +8,15 @@ import org.junit.Test;
  * Created by anayonkar on 9/2/16.
  */
 public class LinkedListDemoTest {
-    private SampleLinkedList<Integer> linkedList;
+    private SampleSinglyLinkedList<Integer> linkedList;
 
     @Before
     public void init() {
-        linkedList = new SampleLinkedList<>(Integer.valueOf(1),
-                new SampleLinkedList<>(Integer.valueOf(2),
-                        new SampleLinkedList<>(Integer.valueOf(3),
-                                new SampleLinkedList<>(Integer.valueOf(4),
-                                        new SampleLinkedList<>(Integer.valueOf(5),
+        linkedList = new SampleSinglyLinkedList<>(Integer.valueOf(1),
+                new SampleSinglyLinkedList<>(Integer.valueOf(2),
+                        new SampleSinglyLinkedList<>(Integer.valueOf(3),
+                                new SampleSinglyLinkedList<>(Integer.valueOf(4),
+                                        new SampleSinglyLinkedList<>(Integer.valueOf(5),
                                                 null)))));
     }
     @Test

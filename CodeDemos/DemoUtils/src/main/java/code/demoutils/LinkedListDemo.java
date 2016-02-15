@@ -12,16 +12,19 @@ public class LinkedListDemo {
                                         new SampleSinglyLinkedList<>(Integer.valueOf(5),
                                                 null)))));*/
         SampleSinglyLinkedList<Integer> linkedList = new SampleSinglyLinkedList<>(Integer.valueOf(1));
-        linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(2), null));
-        SampleSinglyLinkedList<Integer> templist = linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(3), null));
-        linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(4), null));
-        linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(5), templist));
-        /*System.out.println(linkedList);
-        linkedList = reverse(linkedList);
-        System.out.println(linkedList);*/
-        System.out.println(linkedList.hasLoop());
+        linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(2)));
+        SampleSinglyLinkedList<Integer> templist = linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(3)));
+        linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(4)));
+        //linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(5), templist));
+        linkedList.add(new SampleSinglyLinkedList<>(Integer.valueOf(5)));
+        System.out.println(linkedList);
+        linkedList = linkedList.reverse();
+        System.out.println(linkedList);
+        //System.out.println(linkedList.hasLoop());
     }
-    public static <T> SampleSinglyLinkedList<T> reverse(final SampleSinglyLinkedList<T> input) {
+
+    //TODO: Move this method to SampleSinglyLinkedList
+    /*public static <T> SampleSinglyLinkedList<T> reverse(final SampleSinglyLinkedList<T> input) {
         if(input == null) {
             throw new NullPointerException("Null input");
         }
@@ -34,5 +37,5 @@ public class LinkedListDemo {
         nextList.setNext(input);
         //result.setNext(input);
         return result;
-    }
+    }*/
 }

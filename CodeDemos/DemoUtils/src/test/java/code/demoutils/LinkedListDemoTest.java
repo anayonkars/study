@@ -27,6 +27,6 @@ public class LinkedListDemoTest {
     @Test
     public void testLinkedListReverse() {
         final String result = "5->4->3->2->1";
-        Assert.assertEquals("message", result, LinkedListDemo.reverse(linkedList).toString());
+        Assert.assertEquals("message", result, linkedList.reverse().toString());
     }
 }

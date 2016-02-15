@@ -50,6 +50,24 @@ public class SampleSinglyLinkedList<T> {
         }
     }
 
+    public <T> SampleSinglyLinkedList<T> reverse() {
+        return reverse((SampleSinglyLinkedList<T>) this);
+    }
+    private <T> SampleSinglyLinkedList<T> reverse(final SampleSinglyLinkedList<T> input) {
+        if(input == null) {
+            throw new NullPointerException("Null input");
+        }
+        if(input.getNext() == null) {
+            return input;
+        }
+        final SampleSinglyLinkedList<T> nextList = input.getNext();
+        input.setNext(null);
+        final SampleSinglyLinkedList<T> result = reverse(nextList);
+        nextList.setNext(input);
+        //result.setNext(input);
+        return result;
+    }
+
     @Override
     public String toString() {
         if(this.next == null) {

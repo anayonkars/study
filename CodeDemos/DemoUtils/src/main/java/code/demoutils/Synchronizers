@@ -1,0 +1,90 @@
+http://blog.josedacruz.com/2013/05/19/five-advanced-java-synchronizers-you-probably-dont-know/#.VsLKGvl96ih
+
+Besides the common synchronize which is based in the lock bit that every Java object has, you have more sophisticated synchronizers in java, such as:
+
+Semaphore – Use the concept of a permit to indicate a max number of allowed threads in a place. When you use the value 1, the behavior its similar to synchronize, also called binary semaphore. There is however a big difference here, you acquire a permit on the semaphore, not a locking object, its just a variable to count when a thread acquires a permit and when a thread releases a permit, some kind of a counter. The only thing you really have are threads locking until a permit be available. In the example below, we define 3 as the number of permits, so after 3 acquires the 4 thread will wait for a release before continue its execution.
+// Define the semaphore to control 3 permits.
+// 3 Threads can acquire the mySemaphore
+Semaphore mySemaphore = new Semaphore(3, true);
+
+// 3 threads can execute this line of code. The 4 thread must wait for a release
+mySemaphore.acquire();
+
+// .. somewhere in the code a thread releases the mySemaphore,
+// and now the next waiting thread can acquire
+mySemaphore.release();
+CountDownLatch – Initialize this class with a number (to countdown), and when reaches 0 the thread waiting unblocks and follows its way. (After the await the latch cannot be reused)
+
+
+// Initializes a countdown starting from 3
+CountDownLatch latch = new CountDownLatch(3);
+
+// ... other threads are running...
+
+// Some thread blocks and waits for the latch countdown
+// to reach "0"
+latch.await();
+
+// ... code, methods, other objects... etc...
+
+// ... at some place the OTHER threads do the countdown,
+// decrementing the latch.. when it reachs 0
+// the blocked thread with the "await()" follows its way
+latch.countDown();
+
+CyclicBarrier  – This class behaves somehow as the inverse of the CountDownLatch. After N await() the threads blocked can follow their way. (A CyclicBarrier can be reused)
+// 3 threads must await before can unblock
+CyclicBarrier barrier = new CyclicBarrier(3);
+
+// threads they block here until the 3 is reached
+barrier.await();
+
+// after 3 threads in await this code will run!
+System.out.println("Thank you to the 3 friends who awaited for me!”);
+
+Phaser – Very complex synchronizer, a mix of CountDownLatch and CyclicBarrier, with lots of customized options. If you need a behavior similar to 2 previous synchronizers but they were not enough you want to deep into this one. It behaves like a CyclicBarrier but you can register a set of threads and at any time deregister, achieving a level of customization not possible with the other synchronizers. Think about the need to wait for threads to arrive before you can continue or start another set of tasks. More information about this at Oracle website:
+http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Phaser.html
+
+void runTasks(List tasks) {
+   // Initialize the phaser, "1" to register self
+   final Phaser phaser = new Phaser(1);
+   // create and start threads
+   for (final Runnable task : tasks) {
+
+     // register here
+     phaser.register();
+     new Thread() {
+       public void run() {
+
+         // await all creation
+         phaser.arriveAndAwaitAdvance();
+         task.run();
+       }
+     }.start();
+   }
+
+   // allow threads to start and deregister self
+   phaser.arriveAndDeregister();
+ }
+
+Exchanger – The best explanation comes from Oracle doc itself: “A synchronization point at which threads can pair and swap elements within pairs”. One thread wants to send information to other thread and blocks awaiting to send the data, and in EXCHANGE receives what the other thread wants to send too! This behavior happens to both sides!
+// Create the exchanger.
+// We choose String as the data datatype
+Exchanger ex = new Exchanger();
+
+//
+// .... Somewhere at Thread 1,
+//
+
+// I will block until I can send str1 to Thread 2, and receive a value too!
+String str1 = "value to send from Thread 1 to Thread 2";
+String valueReturnedFromThread2 = ex.exchange(str1);
+
+//
+// ... Somewhere at Thread 2,
+//
+
+// I will block until I can send str2 to Thread 1
+// I will receive a value from Thread 1 too!
+String str2 = "value to send to Thread 1 from Thread 2";
+String valueReturnedFromThread1 = ex.exchange(str2);

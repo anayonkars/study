@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
  * Created by ANAYONKS on 16/02/2016.
  */
 //@Component
-public class SampleBean implements BeanNameAware,
+public class SampleBean /*implements BeanNameAware,
         BeanFactoryAware,
         ApplicationContextAware,
         BeanPostProcessor,
         InitializingBean,
-        DisposableBean {
+        DisposableBean*/ {
     private int data;
     private Dependent dependent;
 
@@ -43,7 +43,7 @@ public class SampleBean implements BeanNameAware,
         return dependent;
     }
 
-    @Override
+    /*@Override
     public void setBeanName(String s) {
         System.out.println("setBeanName called with " + s);
     }
@@ -78,5 +78,5 @@ public class SampleBean implements BeanNameAware,
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("afterPropertiesSet called");
-    }
+    }*/
 }

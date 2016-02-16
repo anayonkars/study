@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan
 public class SampleConfig {
-    /*@Bean
+    @Bean
     public SampleBean sampleBean() {
         return new SampleBean(3, dependent());
     }
 
-    @Bean
+    @Bean(name = "namedBean")
     public SampleBean newSampleBean() {
         return new SampleBean(5, newDependent());
     }
@@ -28,5 +28,5 @@ public class SampleConfig {
     @Bean
     public Dependent newDependent() {
         return new Dependent(5);
-    }*/
+    }
 }

@@ -27,7 +27,11 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
         Main main = context.getBean(Main.class);
-        main.getGood().perform();
-        main.getBad().perform();
+        try {
+            main.getGood().perform();
+            main.getBad().perform();
+        } catch (AspectException e) {
+            System.out.println("Exception occurred :" + e);
+        }
     }
 }

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BadPerformance implements Performance {
     @Override
-    public void perform() {
+    public void perform() throws AspectException {
         System.out.println("BadPerformance");
-        int x = 1/0;
+        throw new AspectException();
     }
 }

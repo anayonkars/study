@@ -34,15 +34,15 @@ public class Audience {
     }
 
     @Around("performance()")
-    public void watch(ProceedingJoinPoint pjp) {
+    public void watch(ProceedingJoinPoint pjp) throws Throwable {
         try {
             System.out.println("Around SilentCellPhones");
             System.out.println("Around TakingSeats");
             pjp.proceed();
             System.out.println("Around APPLAUSE");
-        } catch (Throwable t) {
+        } catch (Throwable e) {
             System.out.println("Around BOO");
-            throw new RuntimeException(t);
+            throw e;
         }
     }
 }

@@ -42,10 +42,14 @@ public class SampleBinaryTree<T extends Comparable> {
     }
 
     private boolean isMirrorImage(SampleBinaryTree<T> left, SampleBinaryTree<T> right) {
-        if(left == null || right == null) return left == null && right == null;
+        /*if(left == null || right == null) return left == null && right == null;
         return left.node.equals(right.node)
                 && isMirrorImage(left.left, right.right)
-                && isMirrorImage(left.right, right.left);
+                && isMirrorImage(left.right, right.left);*/
+        return (left == null || right == null) ? left == null && right == null :
+                left.getNode().equals(right.getNode())
+                && isMirrorImage(left.getLeft(), right.getRight())
+                && isMirrorImage(left.getRight(), right.getLeft());
     }
 
     @Override
@@ -58,6 +62,15 @@ public class SampleBinaryTree<T extends Comparable> {
         result.append(" " + node + " ");
         if(this.right != null) right.inOrderTraversal(result);
         return result.toString();
+    }
+
+    public int getHeight() {
+        return getHeight(this);
+    }
+
+    private int getHeight(SampleBinaryTree<T> root) {
+        return root == null ? 0 :
+                1 + Math.max(getHeight(root.getLeft()), getHeight(root.getRight()));
     }
 
     public T getNode() {

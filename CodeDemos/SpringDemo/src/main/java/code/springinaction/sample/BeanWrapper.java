@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 public class BeanWrapper {
     private Bean bean;
 
+    public BeanWrapper() {
+        System.out.println("BeanWrapper Created");
+    }
+
     @Autowired
     @Qualifier("AnotherBeanImplementation")
     public void setBean(Bean bean) {

@@ -14,6 +14,7 @@ public class TransferQueueDemo {
             try {
                 System.out.println("Producer is transferring");
                 linkedTransferQueue.transfer(i);
+                //linkedTransferQueue.offer(i);
                 System.out.println("Producer has transferred");
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -17,6 +17,13 @@ public class Start {
     @Autowired
     private BeanWrapper beanWrapper;
 
+    @Autowired
+    private BeanWrapper anotherBeanWrapper;
+
+    public BeanWrapper getAnotherBeanWrapper() {
+        return anotherBeanWrapper;
+    }
+
     public BeanWrapper getBeanWrapper() {
         return beanWrapper;
     }
@@ -29,5 +36,6 @@ public class Start {
         Start start = context.getBean(Start.class);
         System.out.println(start);
         start.getBeanWrapper().getBean().method();
+        System.out.println(start.getBeanWrapper() == start.getAnotherBeanWrapper());
     }
 }

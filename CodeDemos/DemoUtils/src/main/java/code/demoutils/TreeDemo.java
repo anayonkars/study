@@ -22,5 +22,6 @@ public class TreeDemo {
         System.out.println(leftTree.isMirrorImage());
         System.out.println(rightTree.isMirrorImage());
         System.out.println(tree.isMirrorImage());
+        System.out.println(tree.getHeight());
     }
 }

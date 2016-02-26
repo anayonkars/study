@@ -57,10 +57,36 @@ public class SampleBinaryTree<T extends Comparable> {
         return inOrderTraversal(new StringBuilder());
     }
 
+    public String inOrderTraversal() {
+        return inOrderTraversal(new StringBuilder());
+    }
+
+    public String preOrderTraversal() {
+        return preOrderTraversal(new StringBuilder());
+    }
+
+    public String postOrderTraversal() {
+        return postOrderTraversal(new StringBuilder());
+    }
+
     private String inOrderTraversal(StringBuilder result) {
         if(this.left != null) left.inOrderTraversal(result);
         result.append(" " + node + " ");
         if(this.right != null) right.inOrderTraversal(result);
+        return result.toString();
+    }
+
+    private String preOrderTraversal(StringBuilder result) {
+        result.append(" " + node + " ");
+        if(this.left != null) left.preOrderTraversal(result);
+        if(this.right != null) right.preOrderTraversal(result);
+        return result.toString();
+    }
+
+    private String postOrderTraversal(StringBuilder result) {
+        if(this.left != null) left.postOrderTraversal(result);
+        if(this.right != null) right.postOrderTraversal(result);
+        result.append(" " + node + " ");
         return result.toString();
     }
 

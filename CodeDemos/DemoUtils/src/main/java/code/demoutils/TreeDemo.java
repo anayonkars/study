@@ -23,5 +23,8 @@ public class TreeDemo {
         System.out.println(rightTree.isMirrorImage());
         System.out.println(tree.isMirrorImage());
         System.out.println(tree.getHeight());
+        System.out.println(tree.inOrderTraversal());
+        System.out.println(tree.preOrderTraversal());
+        System.out.println(tree.postOrderTraversal());
     }
 }

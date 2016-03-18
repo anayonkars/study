@@ -8,12 +8,19 @@ import java.util.Arrays;
 public class SelectionSort {
     private static final int[] arr = {64, 25, 12, 22, 11};
     public static int[] selectionSort(int[] input) {
-        return selectionSort(input, 0);
+        //return selectionSort(input, 0);
+        return selectionSortNonRecursive(input);
     }
     private static int[] selectionSort(int[] input, int start) {
         if(start < input.length - 1) {
             swap(input, start, findMinimumIndex(input, start));
             selectionSort(input, start + 1);
+        }
+        return input;
+    }
+    private static int[] selectionSortNonRecursive(int[] input) {
+        for(int start = 0 ; start < input.length -1 ; start++) {
+            swap(input, start, findMinimumIndex(input, start));
         }
         return input;
     }

@@ -3,15 +3,39 @@ package code.demoutils.java8;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Created by ANAYONKS on 17/03/2016.
  */
 public class Demo {
+
+    public static Map<String, Long> charCount(String input) {
+        //Stream.of(input.split("")).flatMap(Arrays::stream).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        /*Stream<String> stream = Stream.of(input.split(""));
+        return stream.filter(t -> !" ".equals(t)).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));*/
+        return Stream.of(input.split(""))
+                .filter(t -> !" ".equals(t))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
+
+    public static Map<String, Long> wordCount(String input) {
+        return Stream.of(input.split(" "))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
+
+    public static Map<Integer, List<String >> mapByLength(String input) {
+        return Stream.of(input.split(" "))
+                .collect(Collectors.groupingBy(String::length));
+    }
+
     public static boolean isGreaterThan3(int number) {
         System.out.println("isGreaterThan called for " + number);
         return number > 3;
@@ -23,11 +47,11 @@ public class Demo {
     }
 
     public static int doubleIt(int number) {
-        try {
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         System.out.println("doubleIt called for " + number);
         return number * 2;
     }
@@ -39,6 +63,10 @@ public class Demo {
     }
 
     public static void main(String[] args) {
+        String input = "hello world hello hello world abcd abc abcd abc";
+        System.out.println(charCount(input));
+        System.out.println(wordCount(input));
+        System.out.println(mapByLength(input));
         System.out.println(isPrime(1));
         System.out.println(isPrime(2));
         System.out.println(isPrime(3));

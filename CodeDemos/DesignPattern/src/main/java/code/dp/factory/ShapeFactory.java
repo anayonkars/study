@@ -3,7 +3,7 @@ package code.dp.factory;
 /**
  * Created by anayonkar on 5/6/16.
  */
-public class ShapeFactory {
+class ShapeFactory {
     public Shape getShape(ShapeType shapeType) {
         switch (shapeType) {
             case CIRCLE:

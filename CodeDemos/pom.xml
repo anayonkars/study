@@ -18,6 +18,13 @@
         <junit.version>4.12</junit.version>
         <aspect.version>1.8.8</aspect.version>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

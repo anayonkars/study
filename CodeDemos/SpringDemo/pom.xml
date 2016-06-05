@@ -15,11 +15,6 @@
   		<version>${spring.version}</version>
   	</dependency>
   	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>${junit.version}</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.aspectj</groupId>
   		<artifactId>aspectjrt</artifactId>
   		<version>${aspect.version}</version>

@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Created by anayonkar on 5/6/16.
  */
-class FactoryDemoTest {
+public class FactoryDemoTest {
     private ShapeFactory shapeFactory = new ShapeFactory();
     @Test
     public void CircleTest() {

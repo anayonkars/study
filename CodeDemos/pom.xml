@@ -9,6 +9,7 @@
   	<module>SpringDemo</module>
       <module>MavenDemo</module>
       <module>TDDSample</module>
+      <module>DesignPattern</module>
   </modules>
     <properties>
         <java.version>1.8</java.version>

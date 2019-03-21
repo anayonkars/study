@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo message="echo message"/>
+  <java classname="code.maven.RPNCalculator" classpathref="maven.compile.classpath"/>
+</target>
+</project>

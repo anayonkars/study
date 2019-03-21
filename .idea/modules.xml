@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CodeDemos/CodeDemos.iml" filepath="$PROJECT_DIR$/CodeDemos/CodeDemos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeDemos/DemoUtils/DemoUtils.iml" filepath="$PROJECT_DIR$/CodeDemos/DemoUtils/DemoUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeDemos/DesignPattern/DesignPattern.iml" filepath="$PROJECT_DIR$/CodeDemos/DesignPattern/DesignPattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeDemos/MavenDemo/MavenDemo.iml" filepath="$PROJECT_DIR$/CodeDemos/MavenDemo/MavenDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeDemos/MavenDemo/RPNCalculator/RPNCalculator.iml" filepath="$PROJECT_DIR$/CodeDemos/MavenDemo/RPNCalculator/RPNCalculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeDemos/SpringDemo/SpringDemo.iml" filepath="$PROJECT_DIR$/CodeDemos/SpringDemo/SpringDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CodeDemos/TDDSample/TDDSample.iml" filepath="$PROJECT_DIR$/CodeDemos/TDDSample/TDDSample.iml" />
+    </modules>
+  </component>
+</project>
